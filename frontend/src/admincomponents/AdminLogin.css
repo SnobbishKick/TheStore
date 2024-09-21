@@ -1,0 +1,18 @@
+.adminloginform{
+   margin-top: 130px;
+   padding-bottom: 15px;
+   /* padding-left: 140px; */
+   padding-top: 9px;
+   color: white;
+   width: 450px;
+   text-align: center;
+   border-radius: 8px 8px 0 0;
+}
+.adminlogin{
+   background-color: deepskyblue;
+}
+
+.adminloghead{
+   background-color: #018bff;
+
+}

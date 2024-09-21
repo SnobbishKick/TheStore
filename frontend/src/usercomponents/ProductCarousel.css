@@ -1,0 +1,76 @@
+.display {
+   padding: 0;
+   margin: 0;
+   list-style: none;
+   display: flex;
+ }
+ 
+ .imgp {
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   padding: 20px;
+   background-color: #fff;
+   margin: 10px;
+   border-radius: 10px;
+   text-align: center;
+ }
+ 
+ .imgp img {
+   width: 100%;
+   height: auto;
+   max-width: 250px;
+   max-height: 200px;
+   object-fit: contain;
+   border-radius: 5px;
+ }
+ 
+ .pdbtns {
+   display: flex;
+   justify-content: space-around;
+   margin-top: 15px;
+ }
+ 
+ .addtocartbtn {
+   background-color: #007bff;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   padding: 10px 20px;
+   font-size: 16px;
+   cursor: pointer;
+   transition: background-color 0.3s, transform 0.2s;
+ }
+ 
+ .addtocartbtn:hover {
+   background-color: #0056b3;
+   transform: scale(1.05);
+ }
+ 
+ .addtocartbtn:focus {
+   outline: none;
+ }
+ 
+ .WishListBtn {
+   background-color: #e83e8c;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   padding: 10px 20px;
+   font-size: 16px;
+   cursor: pointer;
+   transition: background-color 0.3s, transform 0.2s;
+ }
+ 
+ .WishListBtn:hover {
+   background-color: #c82333;
+   transform: scale(1.05);
+ }
+ 
+ .WishListBtn:focus {
+   outline: none;
+ }
+ 
+ button {
+   font-family: Arial, sans-serif;
+   font-weight: bold;
+ }
+ 

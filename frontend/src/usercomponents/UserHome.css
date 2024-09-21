@@ -1,0 +1,126 @@
+/* Carousel styles */
+.carousel {
+  width: 100%;
+  height: 400px;
+  margin: 40px 0;
+}
+
+.carousel img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Product container */
+.display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust gap between items */
+  margin-top: 682px;
+  justify-content: center; /* Center items horizontally */
+  background-color: lavender;
+}
+
+.imgp {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 320px;
+  padding: 20px;
+}
+
+.imgp:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 15px;
+}
+
+.imgp img {
+  width: 300px;
+  height: 225px;
+  padding-right: 17px;
+
+}
+
+/* Product card */
+.product-card {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.stock-in{
+  color: green;
+  font-size: larger;
+
+}
+
+.stock-out{
+  color:#c82333
+}
+/* Add to Cart Button */
+.addtocartbtn {
+  background-color: #007bff; /* Primary color */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.addtocartbtn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.addtocartbtn:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.pdbtns{
+  gap: 5px;
+}
+/* Add to Wishlist Button */
+.WishListBtn {
+  background-color: #e83e8c; /* Primary color */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 5px;
+  padding: 9px 8px;
+    font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.WishListBtn:hover {
+  background-color: #c82333; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.WishListBtn:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+/* General button styling for consistency */
+button {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Image and SVG styling */
+img, svg {
+  vertical-align: middle;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}

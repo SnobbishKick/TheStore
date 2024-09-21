@@ -1,0 +1,251 @@
+/* General Layout */
+.Alogo {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #193c63;
+}
+.admin-page{
+  margin-top: 110px;
+}
+
+.admin-product {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+/* Form Styles */
+.product-form {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.product-form input,
+.product-form select,
+.product-form button,
+.product-form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input-field {
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.cancel-button,
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover,
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-button:active,
+.submit-button:active {
+  background-color: #003d7a;
+}
+
+.UserDetail {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  margin-top: 100px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.UserDetail:hover {
+  background-color: #0056b3;
+}
+
+.UserDetail:active {
+  background-color: #003d7a;
+}
+
+/* Product Grid Layout */
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-item {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.product-image {
+  width: 285px; /* Fixed width */
+  height: 300px; /* Fixed height */
+  object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.product-name,
+.product-category,
+.product-subcategory,
+.product-type,
+.product-gender,
+.product-price,
+.product-inStock {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.product-name b,
+.product-category b,
+.product-subcategory b,
+.product-type b,
+.product-gender b,
+.product-price b,
+.product-inStock b {
+  color: #333;
+}
+
+.edit-button,
+.delete-button {
+  background-color: #007bff;
+  color: white;
+  padding: 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #0056b3;
+}
+
+.edit-button:active,
+.delete-button:active {
+  background-color: #003d7a;
+}
+
+/* Radio and Attribute Styles */
+.radio-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.attribute-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.attribute-item input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Edit Form Dimensions */
+.edit-form {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form button,
+.edit-form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.edit-form input[type="url"],
+.edit-form input[type="text"],
+.edit-form input[type="number"],
+.edit-form select,
+.edit-form textarea {
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.edit-form textarea {
+  height: 120px;
+}

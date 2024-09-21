@@ -1,0 +1,14 @@
+.reghed{
+    padding-bottom: 15px;
+    padding-left: 140px;
+    background-color: #018bff;
+    padding-top: 4px;
+}
+.createlink {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+}
+.register-button{
+    padding: 0px 0px ;
+}

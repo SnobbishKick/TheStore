@@ -1,0 +1,283 @@
+/* Styles for the PaymentPage component */
+.payment-page {
+   max-width: 1000px;
+   margin-top: 90px;
+   padding: 20px;
+   margin-left: 210px;
+   background-color: #f9f9f9;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   display: flex;
+   gap: 20px;
+   position: relative; /* Ensure position context for fixed elements */
+}
+
+.payment-content {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.expandable-section {
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   background-color: #fff;
+   overflow: hidden;
+}
+
+.expand-button {
+   display: block;
+   width: 100%;
+   padding: 10px;
+   background-color: #007bff;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   font-size: 1em;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   text-align: left;
+   position: relative;
+   margin-bottom: 5px;
+}
+
+.expand-button::after {
+   content: '';
+   position: absolute;
+   right: 10px;
+   top: 50%;
+   transform: translateY(-50%);
+   border: solid white;
+   border-width: 0 2px 2px 0;
+   display: inline-block;
+   padding: 3px;
+   transform: rotate(45deg);
+}
+
+.expand-button.active::after {
+   transform: rotate(-135deg);
+}
+
+.section-content {
+   max-height: 0;
+   overflow: hidden;
+   transition: max-height 0.3s ease-out;
+   padding: 0 10px;
+}
+
+.section-content.address {
+   background-color: #e9ecef;
+   max-height: 600px; /* Adjust based on content height */
+   overflow-y: auto;
+}
+
+.section-content.payment {
+   background-color: #f8f9fa;
+   max-height: 600px; /* Adjust based on content height */
+   overflow-y: auto;
+}
+
+.section-content.summary {
+   background-color: #f9f9f9;
+   max-height: 600px; /* Adjust based on content height */
+   overflow-y: auto;
+}
+
+.payment-form {
+   display: flex;
+   flex-direction: column;
+}
+
+.card-element {
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   margin-bottom: 10px;
+   background-color: #e9ecef;
+   color: #495057;
+}
+
+.payment-form label {
+   display: block;
+   margin: 5px 0;
+}
+
+.pay-button {
+   width: 100%;
+   padding: 15px;
+   background-color: #ff9900;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   font-size: 1em;
+   cursor: pointer;
+   transition: background-color 0.3s;
+}
+
+.pay-button:hover {
+   background-color: #e68a00;
+}
+
+.pay-button:disabled {
+   background-color: #ccc;
+   cursor: not-allowed;
+}
+
+.success-message {
+   margin-top: 20px;
+   margin-left: 300px;
+   color: green;
+   font-weight: bold;
+   text-align: center;
+}
+
+.order-card {
+   display: flex;
+   align-items: center;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   background-color: #fff;
+   padding: 10px;
+   margin-bottom: 10px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.order-card-image {
+   width: 80px;
+   height: 80px;
+   object-fit: cover;
+   border-radius: 5px;
+   margin-right: 15px;
+}
+
+.order-card-details {
+   flex: 1;
+}
+
+.order-card-name {
+   font-size: 1.2em;
+   margin: 0;
+}
+
+.order-card-price,
+.order-card-quantity,
+.order-card-total {
+   margin: 5px 0;
+}
+
+.delete-button {
+   background-color: #e74c3c;
+   color: white;
+   border: none;
+   padding: 5px 10px;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 0.9em;
+   margin-top: 10px;
+   transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+   background-color: #c0392b;
+}
+
+/* Fixed Payment Summary Section on the Right */
+.payment-summary {
+   position: fixed;
+   top: 130px;
+   right: 20px;
+   width: 400px;
+   padding: 20px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   background-color: #f1f1f1;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+}
+
+.payment-summary h3 {
+   margin-top: 0;
+   margin-bottom: 10px;
+}
+
+.payment-summary p {
+   margin: 10px 0;
+   font-size: 1.1em;
+}
+
+.payment-summary .total-price {
+   font-size: 1.2em;
+   font-weight: bold;
+   margin-top: 20px;
+}
+
+/* Loader */
+.loader {
+   border: 8px solid #f3f3f3;
+   border-radius: 50%;
+   border-top: 8px solid #3498db;
+   width: 50px;
+   height: 50px;
+   animation: spin 2s linear infinite;
+   margin: 20px auto;
+ }
+ .processing{
+   margin-left: 300px;
+
+ }
+
+ @keyframes spin {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+ }
+
+/* Order Summary Footer */
+.order-summary-footer {
+   border-top: 1px solid #dee2e6;
+   padding-top: 10px;
+   margin-left: 1000px;
+   padding-left: 54px;
+   position: absolute;
+   top: 20px;
+   /* right: 0; */
+   width: 287px;
+   background-color: #f1f1f1;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Hide order-summary-footer during processing or success */
+.payment-page .order-summary-footer {
+   display: none;
+}
+
+.payment-page:not(.is-processing):not(.success) .order-summary-footer {
+   display: block;
+}
+.invoice {
+   padding: 20px;
+   background: #f9f9f9;
+   border: 1px solid #ddd;
+   margin-top: 20px;
+ }
+ 
+ .invoice h2 {
+   margin-top: 0;
+ }
+ 
+ .invoice-items {
+   margin: 10px 0;
+ }
+ 
+ .invoice-item {
+   border-bottom: 1px solid #ddd;
+   padding: 5px 0;
+ }
+ 
+ .invoice-item:last-child {
+   border-bottom: none;
+ }
+ 

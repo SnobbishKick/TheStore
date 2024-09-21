@@ -1,0 +1,25 @@
+.main-div-order{
+   margin-top: 110px;
+}
+
+.thediv{
+   width: 500px;
+   height: 200px;
+   display: flex;
+       display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-content: stretch;
+   justify-content: space-around;
+}
+.leftdiv{
+width: 150px;
+}
+.middiv{
+   width: 150px;
+height: 100px;
+}
+.rightdiv{
+   width: 151px;
+   
+}

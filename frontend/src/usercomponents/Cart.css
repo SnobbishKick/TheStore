@@ -1,0 +1,147 @@
+.cart-container {
+  padding: 20px;
+  margin-top: 75px;
+  font-family: Arial, sans-serif;
+  padding-bottom: 80px;
+}
+
+.cart-content {
+  display: flex;
+  justify-content: space-between; /* Align cart items and checkout section side by side */
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 75%; /* Adjust width to make space for the checkout section */
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.cart-item-image {
+  flex: 0 0 150px; /* Fixed width */
+  height: 150px; /* Fixed height */
+  width:170px;
+  object-fit: cover; /* Ensure image covers the area */
+  border-radius: 8px;
+  margin-right: 20px;
+}
+ /* .checkbox{
+  height: 20px;
+  width: 25px;
+ } */
+
+ .select-all {
+  margin-bottom: 20px;
+}
+
+.select-all input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.description {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.description .product-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.product-price {
+  margin: 5px 0;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quantity-controls button {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.quantity {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.product-total p {
+  margin: 5px 0;
+}
+
+.taxed-amount {
+  color: #fa0606;
+  font-size: 0.9rem;
+}
+
+.remove {
+  background: #ff4444;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart-right {
+  width: 365px;
+    position: fixed;
+    top: 150px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.checkout {
+  width: 100%;
+}
+
+.checkout-total {
+  margin-bottom: 20px;
+}
+
+.checkout-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkout-buttons button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.checkout-buttons button:last-child {
+  background: #28a745;
+}

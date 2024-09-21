@@ -1,0 +1,99 @@
+/* Sidebar container */
+.sidebar {
+   position: relative;
+   margin-top: 20px; /* Adjust as needed */
+ }
+ 
+ /* Sidebar toggle button */
+ .sidebar-toggle {
+   display: block;
+   background-color: #007bff;
+   color: white;
+   border: none;
+   padding: 10px;
+   cursor: pointer;
+   text-align: center;
+   font-size: 16px;
+   width: 100%;
+ }
+ 
+ /* Sidebar content */
+ .sidebar-content {
+   padding: 10px;
+   background-color: #f8f9fa;
+   border: 1px solid #ddd;
+   max-height: 400px; /* Adjust height as needed */
+   overflow: hidden;
+   position: relative;
+ }
+ 
+ /* Similar products container */
+ .similar-products {
+   display: flex;
+   flex-wrap: nowrap;
+   gap: 10px; /* Space between products */
+   transition: transform 0.3s ease; /* Smooth transition */
+ }
+ 
+ /* Product card */
+ .product-card {
+   flex: 1 0 auto;
+   box-sizing: border-box;
+   padding: 10px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   background-color: #fff;
+   text-align: center;
+   overflow: hidden;
+   min-width: 200px; /* Adjust width as needed */
+ }
+ 
+ .product-card img {
+   width: 100%;
+   height: auto;
+   border-bottom: 1px solid #ddd;
+ }
+ 
+ .product-card p {
+   margin: 5px 0;
+ }
+ 
+ /* Button container for carousel-like navigation */
+ .carousel-controls {
+   position: absolute;
+   bottom: 10px;
+   left: 50%;
+   transform: translateX(-50%);
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+ }
+ 
+ /* Carousel control buttons */
+ .carousel-control {
+   background-color: #007bff;
+   color: white;
+   border: none;
+   padding: 5px 10px;
+   cursor: pointer;
+   font-size: 16px;
+   border-radius: 5px;
+ }
+
+ .productdetail{
+   width: 100%;
+   margin-top: 100px;
+   display: flex;
+   flex-wrap: nowrap;
+   align-items: center;
+   margin-top:140px
+ }
+ .imgleft{
+   width: 40%;
+ }
+ /* .detlmiddle{
+
+ }
+ .buynowright{
+
+ } */

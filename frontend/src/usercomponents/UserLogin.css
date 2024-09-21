@@ -1,0 +1,91 @@
+/* UserLogin.css */
+
+/* General container for form */
+/* .form { */
+    /* background-color: #fffdfc;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0 auto; */
+    /* width: 400px;
+    height: 350px; */
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0px;
+    padding-bottom: 33px;
+    margin-bottom: 79px; */
+/* } */
+
+.loghed {
+    padding-bottom: 15px;
+    /* padding-left: 140px; */
+    background-color: #018bff;
+    padding-top: 9px;
+    color: white;
+    width: 100%;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+}
+
+.createlink {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.inputlog{
+    width: calc(100% - 30px); /* Adjust width to accommodate the eye icon */
+    height: 40px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #007bff;
+}
+
+button {
+    /* background-color: #007bff; */
+    background-color: #018BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0px 0px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #007bff;
+    opacity: 0.6;
+    cursor: not-allowed;
+}

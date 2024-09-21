@@ -1,0 +1,313 @@
+const banUser = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const banneduser = await User.findByIdAndUpdate(id, { banned: true }, { new: true });
+        if (!banneduser) {
+            return res.status(404).json({ error: 'User not found' })
+        }
+        res.json({ message: 'User Banned successfully', banneduser });
+
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await User.findByIdAndDelete(id)
+        res.status(200).send("User Deleted successfully")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const addCartItem = async (req, res) => {
+    const { storedUserEmail, productId } = req.body;
+    console.log("req.body @addCartItem", req.body)
+
+    try {
+        const user = await User.findOne({ email: storedUserEmail });
+        console.log("user@", user)
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const existingItem = user.cart.find(item => item.product_id.equals(productId));
+
+        if (existingItem) {
+            existingItem.quantity = existingItem.quantity + 1; // Update quantity
+        } else {
+            user.cart.push({ product_id: productId, quantity: 1 }); // Add new item with quantity 1
+        }
+
+        await user.save();
+
+        res.json(user.cart);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
+// const addCartItem = async (req, res) => {
+//     const { productId } = req.body;
+//     const authToken = localStorage.getItem("authtoken");
+//     const userId = req.user._id;
+//     try {
+//         const user = await User.findByIdAndUpdate(authToken, {
+//             $addToSet: { cart: { product_id: productId } }, // Add item to cart (avoids duplicates)
+//         }, { new: true }); // Return the updated user with cart
+
+//         res.json(user.cart); // Send the updated cart data
+//     } catch (err) {
+//         res.status(500).json({ message: err.message });
+//     }
+// }
+
+
+// const getCartItem = async (req, res) => {
+//     try {
+//         const { storedUserEmail } = req.body;
+//         console.log("req.body @getcartitem",req.body)
+//         const user = await User.findOne({ email: storedUserEmail });
+//         console.log("user @getcartitem",user)
+ 
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+ 
+//         if (user.cart && user.cart.length > 0) {
+//             const productIds = user.cart.map(item => item.product_id);
+ 
+//             // Fetch product details from productIds (assuming Product.findById exists)
+//             const products = await Promise.all(productIds.map(id => Product.findById(id)));
+//             console.log("products items from server:", products);
+ 
+//             // Filter out any products not found (handle potential errors)
+//             const foundProducts = products.filter(product => product);  // Assuming product is null if not found
+ 
+//             res.status(200).json({ cartData: foundProducts });
+//             console.log("Cart items from server:", foundProducts);
+ 
+//         } else {
+//             console.log("Cart is empty or undefined");
+//             res.status(404).json({ message: "Cart is empty or undefined" });
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: "Server error" });
+//     }
+// }
+
+
+// const getCartItem = async (req, res) => {
+// //by mithun sir
+//     const { email } = req.query;
+
+//     try {
+//         // Find the user by email and populate product details in the cart
+//         const user = await User.findOne({ email }).populate({
+//             path: 'cart.product',  // Assuming cart.product is the reference field
+//             model: 'Product'
+//         });
+
+//         if (!user) {
+//             return res.status(404).send({ message: 'User not found' });
+//         }
+
+//         // Calculate the total amount using the product price from the populated data
+//         const totalAmount = user.cart.reduce((total, item) => {
+//             const product = item.product; // Access the populated product
+//             if (product) {
+//                 return total + (product.productPrice * item.quantity);
+//             }
+//             return total;
+//         }, 0);
+
+//         res.status(200).send({ cart: user.cart, totalAmount });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send({ message: 'An error occurred while fetching the cart' });
+//     }
+// };
+
+
+const getCartItem = async (req, res) => {
+    const { storedUserEmail } = req.query;
+  
+    try {
+      const user = await User.findOne({ storedUserEmail }).populate({
+        path: 'cart.product',
+        populate: { // Deep population for product details
+          path: 'details' // Replace 'details' with actual product detail path
+        }
+      });
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      if (user.cart.length === 0) {
+        return res.status(200).json({ cartData: [], totalAmount: 0 });
+      }
+  
+      const cartData = user.cart.map(async (item) => {
+        const populatedProduct = await item.product.populate('details').execPopulate(); // Fetch and populate product details
+        return {
+          product: populatedProduct,
+          quantity: item.quantity
+        };
+      });
+  
+      // Wait for all promises to resolve before sending the response
+      const resolvedCartData = await Promise.all(cartData);
+  
+      const totalAmount = resolvedCartData.reduce((total, item) => {
+        if (item.product && typeof item.product.price === 'number') {
+          return total + (item.product.price * item.quantity);
+        } else {
+          console.error('Product or price missing for cart item:', item);
+          return total; // Handle missing product gracefully
+        }
+      }, 0);
+  
+      res.status(200).json({ cartData: resolvedCartData, totalAmount });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'An error occurred while fetching the cart' });
+    }
+  };
+  
+  
+  
+const updateQuantity = async (req, res) => {
+    const { storedUserEmail, productId, quantity } = req.body;
+
+    if (!storedUserEmail || !productId || typeof quantity !== 'number') {
+        return res.status(400).json({ message: 'userEmail, productId, and quantity are required' });
+    }
+
+    try {
+        // Find the user by email and cart item by product_id
+        const user = await User.findOne({ email: storedUserEmail });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Find the cart item and update its quantity
+        const cartItem = user.cart.find(item => item.product_id.toString() === productId);
+
+        if (!cartItem) {
+            return res.status(404).json({ message: 'Cart item not found' });
+        }
+
+        cartItem.quantity = quantity;
+
+        // Save the updated user
+        await user.save();
+
+        res.status(200).json({ message: 'Cart item quantity updated', cart: user.cart });
+    } catch (error) {
+        console.error("Error in updateCartItemQuantity:", error); // Detailed error logging
+        res.status(500).json({ message: 'Failed to update cart item quantity', error });
+    }
+};
+
+
+// const updateQuantity = async (req, res) => {
+//     const { productId, quantity, storedUserEmail } = req.body;
+//     console.log("req.body @UpdateBackend", req.body);
+
+//     try {
+//         // User Authentication (replace with your actual mechanism)
+//         const user = await User.findOne({ email: storedUserEmail });
+//         console.log("user @ UpdateBackend", user);
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         // Item Search and Quantity Update
+//         const existingItem = user.cart.find(item => item.product_id.equals(productId));
+//         console.log("existing item @updateBackend", existingItem);
+//         if (!existingItem) {
+//             return res.status(404).json({ message: "Item not found in cart" });
+//         }
+
+//         // Data Validation
+//         if (quantity <= 0 || !Number.isInteger(quantity)) {
+//             return res.status(400).json({ message: "Invalid quantity" });
+//         }
+
+//         // existingItem.quantity.product_id = quantity;
+
+//         const updatedUser = await User.findOneAndUpdate(
+//             { _id: user._id, "cart.product_id": productId },
+//             { $set: { "cart.$": existingItem } }, // Update cart subdocument
+//             { new: true } // Return the updated user object
+//         );
+//         if (!updatedUser) { // Check if Correction 2 was used
+//             await user.save();
+//           }
+
+//         // Save User (assuming Mongoose handles saving subdocuments)
+//         await user.save();
+
+//         res.json(user.cart); // Respond with updated cart
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Server error" });
+//     }
+// };
+
+//   const updateQuantity = async (req, res) => {
+//     const { productId, quantity,storedUserEmail } = req.body;
+
+//     try {
+//       const user = await User.findOne({ email: storedUserEmail }); // Assuming storedUserEmail is used
+//       if (!user) {
+//         return res.status(404).json({ message: "User not found" });
+//       }
+
+//       const existingItem = user.cart.find(item => item.product_id.equals(productId));
+
+//       if (!existingItem) {
+//         return res.status(404).json({ message: "Item not found in cart" });
+//       }
+
+//       existingItem.quantity = quantity; // Update quantity
+//       await user.save();
+//       res.json(user.cart);
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).json({ message: "Server error" });
+//     }
+//   };
+
+const removeCartItem = async (req, res) => {
+    const { storedUserEmail, productId } = req.body;
+  
+    try {
+      const user = await User.findOne({ email: storedUserEmail });
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      // Find the cart item to remove
+      const cartItemIndex = user.cart.findIndex(item => item.product_id === productId);
+  
+      if (cartItemIndex !== -1) {
+        user.cart.splice(cartItemIndex, 1);
+        await user.save();
+        return res.status(200).json({ message: 'Item removed from cart' });
+      } else {
+        return res.status(404).json({ message: 'Cart item not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to remove item from cart', error });
+    }
+  }
