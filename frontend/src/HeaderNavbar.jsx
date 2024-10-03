@@ -1,3 +1,5 @@
+//the code starts at  line 486......................................................._.
+
 // import React, { useContext, useEffect, useState } from 'react';
 // import { Link, useNavigate, useLocation } from 'react-router-dom';
 // import { BsMinecart } from 'react-icons/bs';
