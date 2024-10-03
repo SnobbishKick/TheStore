@@ -306,14 +306,20 @@ const placeOrder = async (req, res) => {
             })),
             ...orderDetails,
             status: 'pending', // Status is "pending" until admin approves
-            createdAt: new Date()
+            createdAt: Date.now()
         };
 
         // Add the new order to the user's orders
         user.orders.push(newOrder);
 
-        // Remove items from the cart
-        user.cart = user.cart.filter(cartItem => !items.some(item => item.product_id.toString() === cartItem.product_id.toString()));
+        // Remove items from the cart only if they exist in the cart
+        user.cart = user.cart.filter(cartItem => {
+            return !items.some(item => {
+                const cartItemProductId = cartItem.product_id ? cartItem.product_id.toString() : null;
+                const itemProductId = item.product_id ? item.product_id.toString() : null;
+                return cartItemProductId === itemProductId;
+            });
+        });
 
         // Save the user document
         await user.save();
@@ -324,7 +330,6 @@ const placeOrder = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
-
 
 
 
@@ -372,24 +377,24 @@ const unbanUser = async (req, res) => {
 const addCartItem = async (req, res) => {
     const { storedUserEmail, productId, quantity } = req.body;
 
-    // console.log("reqbody", req.body);
+    console.log("reqbody", req.body);
     try {
         const user = await User.findOne({ email: storedUserEmail });
 
-        // console.log("user@ addto cart", user);
+        console.log("user@ addto cart", user);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         const product = await Product.findById(productId);
-        // console.log("product @add to cart",product);
+        console.log("product @add to cart",product);
 
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
 
         const existingItem = user.cart.find(item => item.product_id.equals(productId));
-        // console.log("existingItem @add to cart",existingItem);
+        console.log("existingItem @add to cart",existingItem);
 
         if (existingItem) {
             return res.status(400).json({ message: "Product already exists in the cart" });
@@ -890,9 +895,13 @@ const removeWishlist = async (req, res) => {
 
 const getWishlist = async (req, res) => {
     const { storedUserEmail } = req.body;
+    console.log("req.body in getwishlist",req.body)
+    console.log("storedUserEmail in getwishlist",storedUserEmail)
+
 
     try {
         const user = await User.findOne({ email: storedUserEmail }).populate('wishlist.product_id');
+        console.log("user in getwishlist",user)
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -902,10 +911,46 @@ const getWishlist = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+const deleteOrder = async (req, res) => {
+    try {
+        const { orderId, productId } = req.params;
+
+        // Find the user who owns the order
+        const user = await User.findOne({ "orders._id": orderId });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // Find the order and remove the specified item
+        const order = user.orders.id(orderId);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // Remove the product from the order
+        order.items = order.items.filter(item => item.product_id.toString() !== productId);
+
+        // If no items are left, remove the order itself
+        if (order.items.length === 0) {
+            user.orders = user.orders.filter(o => o._id.toString() !== orderId); // Correctly filter orders
+        }
+
+        await user.save();
+
+        res.status(200).json({ message: 'Order or item deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting order:', error.message);
+        res.status(500).send('Server error');
+    }
+};
+
+
+
 
 
 module.exports = {
-    createUser, loginUser,userForgotPassword,userResetPassword, updateUser, updateUserDetails,
+    createUser, loginUser,userForgotPassword,userResetPassword, updateUser, updateUserDetails,deleteOrder,
     // deleteUser, 
     getUser, getUserById, placeOrder, banUser, unbanUser, addToWishlist, removeWishlist, getWishlist, addCartItem, getCartItem, updateQuantity, removeCartItem
 }

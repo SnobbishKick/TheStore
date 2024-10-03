@@ -56,6 +56,7 @@ console.log("req.body",req.body);
             adminToken,
             admin: { email: adminCredentials.email },
         });
+        console.log("admintoken",adminToken)
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
     }
@@ -277,23 +278,25 @@ const getPendingOrder = async (req, res) => {
 };
 
 
+
 const approveOrder = async (req, res) => {
     try {
         const { userId, orderId } = req.params;
 
-        // Convert IDs to ObjectId if they are in string format
-        const userObjectId = mongoose.Types.ObjectId(userId);
-        const orderObjectId = new ObjectId(req.params.orderId);  // Correct usage
+        // Convert userId and orderId to Mongoose ObjectId using 'new'
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+        const orderObjectId = new mongoose.Types.ObjectId(orderId);
 
-        // Find the user
+        // Find the user by ID
         const user = await User.findById(userObjectId);
         if (!user) {
             console.error(`User not found with ID ${userId}`);
             return res.status(404).send('User not found');
         }
 
-        // Find the order by its ID
+        // Find the order by its ID within the user's orders array
         const order = user.orders.id(orderObjectId);
+        console.log("Order in approve:", order);
         if (!order) {
             console.error(`Order not found with ID ${orderId} for user ${userId}`);
             return res.status(404).send('Order not found');
@@ -307,35 +310,36 @@ const approveOrder = async (req, res) => {
 
         // Approve the order and reduce product stock
         for (const item of order.items) {
-            const product = await Product.findById(item.product_id);
+            // Use item._id instead of item.product_id to find the product
+            const product = await Product.findById(item.product_id || item._id);
+            console.log("Product in approve:", product);
 
             if (!product) {
-                console.error(`Product not found with ID ${item.product_id}`);
-                return res.status(404).json({ message: `Product not found for ID ${item.product_id}` });
+                console.error(`Product not found with ID ${item._id}`);
+                return res.status(404).json({ message: `Product not found with ID ${item._id}` });
             }
 
             // Ensure there's enough stock
             if (product.inStock < item.quantity) {
-                console.error(`Not enough stock for product ${item.product_id}`);
-                return res.status(400).json({ message: `Not enough stock for product ${item.product_id}` });
+                console.error(`Not enough stock for product ${item._id}`);
+                return res.status(400).json({ message: `Not enough stock for product ${item._id}` });
             }
 
+            // Deduct the stock
             product.inStock -= item.quantity;
             await product.save();
         }
 
-        // Update order status to approved
+        // Update order status to 'approved'
         order.status = 'approved';
         await user.save();
 
-        res.status(200).json({ message: 'Order approved' });
+        res.status(200).json({ message: 'Order approved successfully' });
     } catch (error) {
         console.error('Error approving order:', error.message);
-        console.error('Stack trace:', error.stack);
         res.status(500).send('Server error');
     }
 };
-
 
 module.exports = {adminregister,adminlogin,addCategory,approveOrder,getPendingOrder,
     addSubCategory,addTypes,

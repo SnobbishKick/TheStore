@@ -45,6 +45,9 @@ router.post('/removeCart',userController.removeCartItem)
 
 router.post('/removewishlist',userController.removeWishlist)
 router.post('/addtowishlist',userController.addToWishlist)
+router.post('/getwishlist', userController.getWishlist);
+router.delete('/orders/:orderId/:productId',userController.deleteOrder);
+
 
 
 module.exports = router;

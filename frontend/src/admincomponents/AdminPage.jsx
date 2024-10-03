@@ -12,6 +12,8 @@ function AdminPage() {
     const [editProductId, setEditProductId] = useState(null);
     const [selectedEditCategory, setSelectedEditCategory] = useState('');
     const [selectedEditSubCategory, setSelectedEditSubCategory] = useState('');
+    const [genders, setGenders] = useState([]);
+
     const [editProduct, setEditProduct] = useState({
         image: '',
         name: '',
@@ -20,7 +22,7 @@ function AdminPage() {
         category: '',
         subCategory: '',
         type: '',
-        gender: '',
+        gender:genders || undefined,
         attributes: {},
         description: '',
         inStock: ''
@@ -33,7 +35,7 @@ function AdminPage() {
         category: '',
         subCategory: '',
         type: '',
-        gender: '',
+        gender:genders || undefined,
         description: '',
         inStock: 0,
         attributes: {}
@@ -45,7 +47,6 @@ function AdminPage() {
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const [types, setTypes] = useState({});
     // const [genders, setGenders] = useState(['Men', 'Women', 'Unisex', 'Kid']);
-    const [genders, setGenders] = useState([]);
 
 
     const [newCategory, setNewCategory] = useState('');
@@ -301,10 +302,11 @@ function AdminPage() {
     return (
         <div className="admin-page">
             {/* <h1>Admin Page</h1> */}
-            <h2>Admin Dashboard</h2>
+            {/* <h2>Admin Dashboard</h2> */}
+            <button onClick={UserDetailbtn}>UserDetail</button>
+
             <div className="container">
 
-                <button onClick={UserDetailbtn}>UserDetail</button>
 
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
                 {successMessage && <div className="success-message">{successMessage}</div>}
@@ -388,7 +390,6 @@ function AdminPage() {
             </div>
             <div className="container">
 
-                <h2>Add New Product</h2>
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
                 <form onSubmit={handleSubmitProduct}>

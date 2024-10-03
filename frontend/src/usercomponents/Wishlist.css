@@ -1,6 +1,7 @@
 /* Wishlist.css */
 .wishlist-container {
     padding: 20px;
+    margin-top: 90px;
   }
   
   .wishlist-grid {
@@ -46,6 +47,8 @@
   
   .button-container {
     margin-top: 20px;
+    background-color: black;
+    width: 100px;
   }
   
   .icon-button {

@@ -100,8 +100,8 @@ function Cart() {
 
   const handleRemove = async (productId) => {
     try {
-      await axios.delete(`${serverURL}/api/users/removeCart`, {
-        data: { productId, storedUserEmail }
+      await axios.post(`${serverURL}/api/users/removeCart`, {
+      productId, storedUserEmail 
       });
       const updatedCartItems = cartItems.filter(item => item.product_id !== productId);
       setCartItems(updatedCartItems);
@@ -200,7 +200,8 @@ function Cart() {
                 <p>Cart Total (incl tax & shipping): ₹{cartTotal}</p>
 
                 <div className="checkout-buttons">
-                  <button onClick={() => navigate("/UserHome")}>Continue Shopping</button>
+                  {/* <button onClick={() => navigate("/UserHome")}>Continue Shopping</button> */}
+                  <button onClick={() => navigate("/Newuserhome")}>Continue Shopping</button>
                   <button onClick={handleCheckout}>Checkout Selected</button>
                 </div>
               </div>

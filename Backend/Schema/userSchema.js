@@ -177,6 +177,7 @@ const orderSchema = new mongoose.Schema({
         category: { type: String }
     }],
     status: { type: String, default: 'pending' },
+    createdAt: { type: Date, default: Date.now }
     // Add other order fields as necessary
 });
 

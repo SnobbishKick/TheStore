@@ -37,7 +37,7 @@ function AdminLogin() {
             setError('');
             alert('Admin Login Successful');
             setLogSuccess(true)
-            console.log(response.data.adminToken);
+            console.log("response.data.admintoken",response.data.adminToken);
             localStorage.setItem('AdminToken', response.data.adminToken);
             navigate("/AdminPage");
             // Redirect or perform other actions upon successful login

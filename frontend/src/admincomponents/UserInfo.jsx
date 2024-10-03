@@ -13,7 +13,7 @@ function UserInfo() {
 
   useEffect(() => {
     handleFetchUser();
-  }, [userId]);
+  }, []);
 
   const handleFetchUser = async () => {
     setLoading(true);

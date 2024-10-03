@@ -15,42 +15,45 @@ function UserHome() {
     setCartItems,
     wishlistItems,
     filters,
+    products, setProducts,
     sortOption
   } = useContext(MyContext);
 
-  const [products, setProducts] = useState([]);
+  // const [] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null); // New state for error handling
-  const productsPerPage = 10;
+  // const productsPerPage = 10;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      setError(null); // Reset error state
-      try {
-        const response = await axios.get(`${serverURL}/api/products/getsome`, {
-          params: {
-            page: currentPage,
-            limit: productsPerPage,
-            ...filters,
-            sort: sortOption
-          }
-        });
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     setLoading(true);
+  //     setError(null); // Reset error state
+  //     try {
+  //       const response = await axios.get(`${serverURL}/api/products/getproduct`
 
-        setProducts(response.data.products);
-        setTotalPages(response.data.totalPages);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-        setError('Failed to load products.'); // Set error message
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       // const response = await axios.get(`${serverURL}/api/products/getsome`, {
+  //       //   params: {
+  //       //     page: currentPage,
+  //       //     limit: productsPerPage,
+  //       //     ...filters,
+  //       //     sort: sortOption
+  //       //   }});
+  //       );
 
-    fetchProducts();
-  }, [currentPage, filters, sortOption]);
+  //       setProducts(response.data.products || []);
+  //       setTotalPages(response.data.totalPages);
+  //     } catch (error) {
+  //       console.error('Error fetching products:', error);
+  //       setError('Failed to load products.'); // Set error message
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchProducts();
+  // }, [currentPage, filters, sortOption]);
 
 
 
@@ -148,7 +151,7 @@ function UserHome() {
         </Carousel.Item>
       </Carousel>
 
-      <h1>New Arrivals</h1>
+      {/* <h1>New Arrivals</h1> */}
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>} {/* Display error message */}
       {!loading && !error && (
@@ -185,7 +188,7 @@ function UserHome() {
         </ul>
       )}
 
-      <div className="pagination">
+      {/* <div className="pagination">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -207,13 +210,13 @@ function UserHome() {
         >
           Next
         </button>
-      </div>
+      </div> */}
 <div>
   {
 
   }
 </div>
-      <Footer />
+      {/* <Footer /> */}
 
     </div>
   );

@@ -51,6 +51,7 @@ function UserLogin() {
             localStorage.setItem('userId', response.data.userId);
             alert('Login Successful!');
             nav('/Userhome');
+            // nav('/Newuserhome')
         } catch (error) {
             if (error.response && error.response.status === 403) {
                 alert('Login unsuccessful, you have been banned by admin.');
@@ -72,7 +73,7 @@ function UserLogin() {
 
     return (
         <div style={{ paddingBottom: '305px', backgroundColor: 'deepskyblue' }}>
-            <form className="form" style={{ paddingTop: '100px' }} onSubmit={userLoginbtn}>
+            <form className="form" style={{ paddingTop: '130px' }} onSubmit={userLoginbtn}>
                 <div style={{
                     backgroundColor: '#fffdfc',
                     listStyle: 'none',

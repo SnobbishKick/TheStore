@@ -18,8 +18,13 @@ import MyAccount from './usercomponents/MyAccount';
 import PaymentPage from './usercomponents/PaymentPage';
 import MyOrders from './usercomponents/MyOrders';
 import ProductDetails from './usercomponents/ProductDetails';
+
+import Newuserhome from './usercomponents/Newuserhome';
+import SortPanel from './usercomponents/SortPanel';
+import Dummyuserhome from './usercomponents/Dummyuserhome';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Footer from './Footer';
 import ForgotPassword from "./usercomponents/ForgotPassword";
 import ResetPassword from './usercomponents/ResetPassword';
@@ -41,7 +46,7 @@ function App() {
   const [loginStatus, setLoginStatus] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
-
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [filters, setFilters] = useState({
     category: '',
     subCategory: '',
@@ -159,7 +164,9 @@ function App() {
     setFilters,
     sortOption,
     setSortOption,
-   
+    selectedCategory, 
+    setSelectedCategory,
+
   };
 
   return (
@@ -189,6 +196,12 @@ function App() {
             <Route path='/MyOrders' element = {<MyOrders />}/>
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/users/:userId" element={<UserInfo />} />
+
+            <Route path="/Newuserhome" element={<Newuserhome/>} />
+            <Route path="/SortPanel" element ={<SortPanel/>} />
+            <Route path="/Dummyuserhome" element={<Dummyuserhome/>} />
+            {/* <Route path="/Newuserhome" element={<Newuserhome/>} /> */}
+
 
           </Routes>
         </MyContext.Provider>

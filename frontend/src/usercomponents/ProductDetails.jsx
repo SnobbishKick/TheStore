@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Slider from 'react-slick';
+import {MyContext} from '../Mycontext'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './ProductDetails.css'; // Import your CSS for styling
 
 function ProductDetails() {
    const navigate = useNavigate();
+   const {
+      storedUserEmail,
+      userToken,
+      // serverURL,
+      cartItems,
+      setCartItems,
+      wishlistItems,
+      // filters,
+      // products, setProducts,
+      // sortOption
+    } = useContext(MyContext);
    const { productId } = useParams();
    const [product, setProduct] = useState(null);
    const [similarProducts, setSimilarProducts] = useState([]);
@@ -38,22 +50,33 @@ function ProductDetails() {
    };
 
    // Add to Cart Functionality
-   const addToCart = async () => {
-      if (quantity <= 0) {
-         alert("Please select a valid quantity.");
-         return;
+   const addToCart = async (product) => {
+      if (!userToken) {
+        alert('Please Login First');
+        return;
+      }
+      if (product.inStock === 0) {
+        alert('This product has been sold out');
+        return;
       }
       try {
-         await axios.post(`${serverURL}/api/users/addcart`, {
-            productId: product._id,
-            quantity: quantity
-         });
-         alert("Product added to cart!");
+        const response = await axios.post(`${serverURL}/api/users/addcart`, {
+          productId: product._id,
+          storedUserEmail: storedUserEmail,
+          quantity: quantity
+        });
+        setCartItems(response.data);
+        alert('Your Product is added to the Cart');
       } catch (error) {
-         console.error('Error adding to cart:', error);
+        if (error.response && error.response.status === 409) {
+          alert(error.response.data.msg);
+        } else if (error.response && error.response.status === 400) {
+          alert('This product already exists in the cart',error);
+        } else {
+          alert('An error occurred while adding the product.',error);
+        }
       }
-   };
-
+    };
    // Buy Now Functionality (Redirecting to Payment Page directly)
    const buyNow = () => {
       if (quantity <= 0) {
@@ -61,7 +84,9 @@ function ProductDetails() {
          return;
       }
       // Navigate to the PaymentPage, passing product details and quantity in state
-      navigate("/PaymentPage", { state: { selectedItems: [{ ...product, quantity }] } });
+      navigate("/PaymentPage", { state: { 
+         selectedItems: [{ ...product, product_id: product._id, quantity }]  // Pass the correct product_id
+     } });
    };
 
    if (!product) return <div>Loading...</div>;
@@ -97,7 +122,8 @@ function ProductDetails() {
                />
             </div>
             <div className='buynowright'>
-               <button onClick={addToCart}>Add to Cart</button>
+               <button onClick={() => addToCart(product)}>Add to Cart</button>
+               <br />
                <button onClick={buyNow}>Buy Now</button>
             </div>
          </div>

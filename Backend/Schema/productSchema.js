@@ -57,7 +57,8 @@ const productSchema = new mongoose.Schema({
     type: { type: String, required: true },
     gender: {
         type: String,
-        enum: ['Men', 'Women', 'Unisex', 'Kid'],
+        enum: ['Men', 'Women', 'Unisex', 'Kid', 'none'], 
+        default: 'none', 
     },
     attributes: {
         type: Map,

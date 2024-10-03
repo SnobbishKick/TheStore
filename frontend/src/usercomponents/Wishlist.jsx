@@ -41,11 +41,11 @@ const Wishlist = () => {
   // Remove from wishlist handler
   const dislikebtn = async (product) => {
     try {
-      const response = await axios.delete(`${serverURL}/api/users/removeWishlist`, {
-        data: {
+      const response = await axios.post(`${serverURL}/api/users/removeWishlist`, {
+        // data: {
           storedUserEmail: storedUserEmail,
           productId: product._id,
-        },
+        // },
       });
 
       if (response.status === 200) {
@@ -108,11 +108,12 @@ const Wishlist = () => {
                 <p><strong>Price:</strong> ₹{product.price}</p>
                 <p><strong>Brand:</strong> {product.brand || "Unknown"}</p>
                 <p><strong>Category:</strong> {product.category || "Unknown"}</p>
+                
                 <div className="button-container">
                   <button
                     onClick={() => handleCart(product._id)}
                     className="icon-button">
-                    {cartItems.find(cartItem => cartItem._id === product._id) ? <TiShoppingCart style={{ color: "green", width: "35px", height: "30px" }} /> : <TiShoppingCart style={{ width: "35px", height: "30px" }} />}
+                    {cartItems.find(cartItem => cartItem._id === product._id) ? <TiShoppingCart style={{ color: "black", width: "35px", height: "30px" }} /> : <TiShoppingCart style={{ width: "35px", height: "30px" }} />}
                   </button>
                   <button
                     onClick={() => dislikebtn(product)}

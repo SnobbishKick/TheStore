@@ -1,0 +1,116 @@
+.Header-Navbar {
+   background-color: #f8f9fa; /* Adjust the color as needed */
+   padding: 10px 20px;
+ }
+ 
+ .Nav-bar {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+ }
+ 
+ .left-section {
+   flex: 1;
+   position: relative; /* Added for absolute positioning of hamburger menu */
+ }
+ 
+ .center-section {
+   flex: 2;
+   display: flex;
+   align-items: center;
+ }
+ 
+ .right-section {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+ }
+ 
+ .input-Search {
+   width: 80%;
+   padding: 5px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+ }
+ 
+ .filter-icon {
+   cursor: pointer;
+   margin-left: 10px;
+ }
+ 
+ .login-logo {
+   cursor: pointer;
+   margin-left: 10px;
+ }
+ 
+ .wishlist-logo,
+ .cart-logo {
+   margin-left: 10px;
+ }
+ 
+ .hamburger-menu {
+   display: none;
+   flex-direction: column;
+   align-items: flex-end;
+   position: absolute;
+   background: white;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   padding: 10px;
+   z-index: 100;
+ }
+ 
+ #menuToggle {
+   display: flex;
+   flex-direction: column;
+   position: relative;
+ }
+ 
+ #menuToggle input[type='checkbox'] {
+   display: none;
+ }
+ 
+ #menuToggle input[type='checkbox']:checked + span {
+   transform: rotate(45deg);
+ }
+ 
+ #menuToggle input[type='checkbox']:checked ~ .hamburger-menu {
+   display: flex;
+ }
+ 
+ .filter-section {
+   display: none;
+   flex-direction: column;
+   position: absolute;
+   background: white;
+   padding: 10px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   z-index: 100;
+ }
+ 
+ .filter-section.active {
+   display: flex;
+ }
+ 
+ .filter-section label,
+ .filter-section select,
+ .filter-section input {
+   margin: 5px 0;
+ }
+ 
+ .cart-badge {
+   position: absolute;
+   top: 0;
+   right: 0;
+ }
+ 
+ .menubuttons {
+   margin: 5px 0;
+   cursor: pointer;
+   border: none;
+   background: transparent;
+   padding: 10px;
+   text-align: left;
+   width: 100%;
+ }
+ 
